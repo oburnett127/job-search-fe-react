@@ -1,0 +1,29 @@
+// import { useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import classes from './JobsList.module.css';
+
+function JobsList({jobs}) {
+  // const jobs = useLoaderData();
+
+  return (
+    <div className={classes.jobs}>
+      <h1>All Jobs</h1>
+      <ul className={classes.list}>
+        {jobs.map((job) => (
+          <li key={job.id} className={classes.item}>
+            <Link to={`/jobs/${job.id}`}>
+              <img src={job.image} alt={job.title} />
+              <div className={classes.content}>
+                <h2>{job.title}</h2>
+                <time>{job.date}</time>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default JobsList;
