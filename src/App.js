@@ -5,8 +5,8 @@ import ErrorPage from './pages/Error';
 import JobDetailPage, {
   loader as jobDetailLoader,
   action as deleteJobAction,
-} from './pages/JobDetail';
-import JobsPage, { loader as jobsLoader } from './pages/Jobs';
+} from './pages/JobDetailLoaderPage';
+import JobsPage, { loader as jobsLoader } from './pages/JobsLoaderPage';
 import JobsRootLayout from './pages/JobsRoot';
 import HomePage from './pages/Home';
 import NewJobPage from './pages/NewJob';
