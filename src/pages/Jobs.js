@@ -18,7 +18,7 @@ function JobsPage() {
 export default JobsPage;
 
 async function loadJobs() {
-  const response = await fetch('http://localhost:8080/jobs');
+  const response = await fetch('http://localhost:8080/job/list');
 
   if (!response.ok) {
     // return { isError: true, message: 'Could not fetch jobs.' };

@@ -69,16 +69,14 @@ export async function action({ request, params }) {
 
   const jobData = {
     title: data.get('title'),
-    image: data.get('image'),
-    date: data.get('date'),
     description: data.get('description'),
   };
 
-  let url = 'http://localhost:8080/jobs';
+  let url = 'http://localhost:8080/job';
 
   if (method === 'PATCH') {
     const jobId = params.jobId;
-    url = 'http://localhost:8080/jobs/' + jobId;
+    url = 'http://localhost:8080/job/updateJob' + jobId;
   }
 
   const response = await fetch(url, {

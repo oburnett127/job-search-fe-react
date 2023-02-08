@@ -4,8 +4,8 @@ function HomePage() {
   return (
     <PageContent title="Welcome!">
       <p>There's a job for everyone!</p>
-        <Link to={"/findjob"}>Find a job</Link>
-        <Link to={"/postjob"}>Post a job</Link>
+        <Link to={"/jobs"}>Find a job</Link>
+        <Link to={"/jobs/new"}>Post a job</Link>
     </PageContent>
   );
 }

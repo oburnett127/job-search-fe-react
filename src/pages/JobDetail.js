@@ -32,7 +32,7 @@ function JobDetailPage() {
 export default JobDetailPage;
 
 async function loadJob(id) {
-  const response = await fetch('http://localhost:8080/jobs/' + id);
+  const response = await fetch('http://localhost:8080/job/get');
 
   if (!response.ok) {
     throw json(
@@ -78,8 +78,12 @@ export async function loader({ request, params }) {
 
 export async function action({ params, request }) {
   const jobId = params.jobId;
-  const response = await fetch('http://localhost:8080/jobs/' + jobId, {
+  const response = await fetch('http://localhost:8080/job/get',{
     method: request.method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jobId)
   });
 
   if (!response.ok) {

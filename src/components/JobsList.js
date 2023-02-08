@@ -13,10 +13,9 @@ function JobsList({jobs}) {
         {jobs.map((job) => (
           <li key={job.id} className={classes.item}>
             <Link to={`/jobs/${job.id}`}>
-              <img src={job.image} alt={job.title} />
               <div className={classes.content}>
                 <h2>{job.title}</h2>
-                <time>{job.date}</time>
+                <time>{job.postdate}</time>
               </div>
             </Link>
           </li>
