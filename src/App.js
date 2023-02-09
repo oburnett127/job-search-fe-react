@@ -3,10 +3,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import EditJobPage from './pages/EditJob';
 import ErrorPage from './pages/Error';
 import JobDetailPage, {
-  loader as jobDetailLoader,
   action as deleteJobAction,
-} from './pages/JobDetailLoaderPage';
-import JobsPage, { loader as jobsLoader } from './pages/JobsLoaderPage';
+} from './pages/JobDetail';
+import JobsPage from './pages/Jobs';
 import JobsRootLayout from './pages/JobsRoot';
 import HomePage from './pages/Home';
 import NewJobPage from './pages/NewJob';
@@ -27,12 +26,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <JobsPage />,
-            loader: jobsLoader,
           },
           {
             path: ':jobId',
             id: 'job-detail',
-            loader: jobDetailLoader,
             children: [
               {
                 index: true,

@@ -1,18 +1,23 @@
-import { Suspense } from 'react';
-import { useLoaderData, json, defer, Await } from 'react-router-dom';
-
+import {useEffect} from 'react'
+import {json} from 'react-router-dom';
 import JobsList from '../components/JobsList';
-
 function JobsPage() {
+  let jobs
+
+  useEffect(() => {
+    jobs = loadJobs()
+    console.log("jobs page is being rendered")
+  }, [] )
+
   return (
-    <JobsList jobs={loadedJobs} />
+    <JobsList jobs={jobs} />
   );
 }
 
 export default JobsPage;
 
 async function loadJobs() {
-  const response = await fetch('http://localhost:8080/job/list');
+  const response = await fetch('http://localhost:8080/job/list')
 
   if (!response.ok) {
     throw json(
@@ -22,7 +27,8 @@ async function loadJobs() {
       }
     );
   } else {
-    const resData = await response.json();
-    return resData.jobs;
+    const resData = await response.json()
+    console.log(resData)
+    return resData.jobs
   }
 }

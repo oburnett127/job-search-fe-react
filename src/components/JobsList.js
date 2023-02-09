@@ -1,10 +1,9 @@
-// import { useLoaderData } from 'react-router-dom';
+//import { useLoaderData } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
 import classes from './JobsList.module.css';
 
 function JobsList({jobs}) {
-  // const jobs = useLoaderData();
+  //const jobs = useLoaderData();
 
   return (
     <div className={classes.jobs}>
