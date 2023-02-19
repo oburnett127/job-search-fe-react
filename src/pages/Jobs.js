@@ -1,13 +1,16 @@
 import JobsList from '../components/JobsList';
-import { useQuery } from "react-query";
-import JobService from "./services/JobService";
+import { useQuery } from 'react-query';
+import JobService from "../services/JobService";
 
 function JobsPage() {
-  const { data: jobsData, isLoading: isLoadingJobs } = useQuery(["jobs"], () =>
+  const { data: jobsData, isLoading: isLoadingJobs } = useQuery('jobs', () =>
       JobService.getAllJobs()
   );
 
-  const jobs = isLoadingJobs ? [] : Object.keys(jobsData);
+  console.log("jobsData is set to ");
+  console.log(jobsData);
+
+  const jobs = isLoadingJobs ? [] : Object.keys(jobsData.data || {});
 
   return (
       <>

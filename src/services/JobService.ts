@@ -1,4 +1,4 @@
-import request from "../components/request"
+import request from "../components/Request"
 
 export default class JobService {
     static getJob() {

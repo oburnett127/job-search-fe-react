@@ -6,12 +6,12 @@ const client = (() => {
     });
 })();
 
-const request = async function (options, store) {
+const request = async function (options) {
     const onSuccess = function (response) {
-        const {
-            data: { message }
-        } = response;
-        return message;
+        // const {
+        //     data: { message }
+        // } = response;
+        return response;
     };
 
     const onError = function (error) {

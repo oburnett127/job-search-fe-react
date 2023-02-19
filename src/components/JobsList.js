@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import classes from './JobsList.module.css';
 
 function JobsList({jobs}) {
+
+    console.log(jobs);
+
   return (
     <div className={classes.jobs}>
       <h1>All Jobs</h1>
