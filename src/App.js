@@ -1,10 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
 import EditJobPage from './pages/EditJob';
 import ErrorPage from './pages/Error';
-import JobDetailPage, {
-  action as deleteJobAction,
-} from './pages/JobDetail';
+import JobDetailPage from './pages/JobDetail';
 import JobsPage from './pages/Jobs';
 import JobsRootLayout from './pages/JobsRoot';
 import HomePage from './pages/Home';
