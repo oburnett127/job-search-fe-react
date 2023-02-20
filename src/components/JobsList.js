@@ -13,8 +13,9 @@ function JobsList({jobs}) {
           <li key={job.id} className={classes.item}>
             <Link to={`/jobs/${job.id}`}>
               <div className={classes.content}>
-                <h2>{job.title}</h2>
-                <time>{job.postdate}</time>
+                  <h2>{job.title}</h2>
+                  <h3>{job.employerid}</h3>
+                  <time>{job.postdate}</time>
               </div>
             </Link>
           </li>

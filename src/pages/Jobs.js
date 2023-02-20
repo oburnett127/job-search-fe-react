@@ -7,10 +7,7 @@ function JobsPage() {
       JobService.getAllJobs()
   );
 
-  console.log("jobsData is set to ");
-  console.log(jobsData);
-
-  const jobs = isLoadingJobs ? [] : Object.keys(jobsData.data || {});
+  const jobs = isLoadingJobs ? [] : jobsData.data;
 
   return (
       <>

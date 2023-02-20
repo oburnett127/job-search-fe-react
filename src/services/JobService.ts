@@ -1,10 +1,12 @@
 import request from "../components/Request"
 
 export default class JobService {
-    static getJob() {
+    // @ts-ignore
+    static getJob({ jobId }) {
         return request({
             url: "/job/get",
-            method: "GET"
+            method: "GET",
+            body: {id:jobId}
         });
     }
     static getAllJobs() {
