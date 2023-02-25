@@ -1,19 +1,24 @@
-import JobItem from '../components/JobItem';
-import { useQuery } from 'react-query';
-import JobService from '../services/JobService';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {useQuery} from "react-query";
+import {useParams} from "react-router-dom";
 
 function JobDetailPage() {
-  const { jobId } = useParams();
+    const {id} = useParams();
 
-  console.log(jobId);
+    const { isLoading, error, data: jobDetail } = useQuery('jobDetail', () =>
+        axios('http://localhost:8080/job/get/' + id).then((res) => res.data)
+    );
 
-  const { data: jobData } = useQuery('job', () => JobService.getJobById(jobId));
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
-  console.log(jobData);
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
 
-  return <JobItem job={jobData} />;
+    return <div>{jobDetail.title}</div>;
 }
 
 export default JobDetailPage;

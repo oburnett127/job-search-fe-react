@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
 import EditJobPage from './pages/EditJob';
 import ErrorPage from './pages/Error';
 import JobDetailPage from './pages/JobDetail';
@@ -9,49 +9,28 @@ import NewJobPage from './pages/NewJob';
 import RootLayout from './pages/Root';
 import { action as manipulateJobAction } from './components/JobForm';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <HomePage /> },
-      {
-        path: 'jobs',
-        element: <JobsRootLayout />,
-        children: [
-          {
-            index: true,
-            element: <JobsPage />,
-          },
-          {
-            path: ':jobId',
-            id: 'job-detail',
-            children: [
-              {
-                index: true,
-                element: <JobDetailPage />,
-              },
-              {
-                path: 'edit',
-                element: <EditJobPage />,
-                action: manipulateJobAction,
-              },
-            ],
-          },
-          {
-            path: 'new',
-            element: <NewJobPage />,
-            action: manipulateJobAction,
-          },
-        ],
-      },
-    ],
-  },
-]);
-
 function App() {
-  return <RouterProvider router={router} />;
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path="/" exact  errorElement = {<ErrorPage />} element={<RootLayout />}>
+                <Route index element={<HomePage />}></Route>
+                <Route path="/jobs" element={<JobsRootLayout />}>
+                    <Route index element={<JobsPage />}></Route>
+                    <Route path="/jobs/:id" id="job-detail">
+                        <Route index element={<JobDetailPage />}></Route>
+                        <Route path="/jobs/:id/edit" action={manipulateJobAction} element={<EditJobPage />}></Route>
+                    </Route>
+                    <Route path="/jobs/new" action={manipulateJobAction} element={<NewJobPage />}></Route>
+                </Route>
+            </Route>
+        )
+    );
+
+    return (
+        <div className={"App"}>
+            <RouterProvider router={router} />
+        </div>
+    );
 }
 
 export default App;

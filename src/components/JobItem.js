@@ -13,6 +13,9 @@ function JobItem({ job }) {
   //   }
   // }
 
+    console.log("inside jobItem before return $$$$$");
+    console.log(job);
+
   return (
     <article className={classes.job}>
         <h2>{job.title}</h2>
