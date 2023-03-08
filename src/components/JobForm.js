@@ -72,11 +72,11 @@ export async function action({ request, params }) {
     description: data.get('description'),
   };
 
-  let url = 'http://localhost:8080/job';
+  let url = 'http://localhost:8080/job/create';
 
-  if (method === 'PATCH') {
+  if (method === 'PUT') {
     const jobId = params.jobId;
-    url = 'http://localhost:8080/job/updateJob' + jobId;
+    url = 'http://localhost:8080/job/edit/' + jobId;
   }
 
   const response = await fetch(url, {
@@ -96,5 +96,52 @@ export async function action({ request, params }) {
   }
 
   return redirect('/jobs');
+}
+
+
+//--------------------------------------------------------
+import { useMutation } from 'react-query';
+import axios from 'axios';
+
+function JobForm() {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  const createJob = useMutation(
+      (formData) => axios.post('http://localhost:8080/job/create', formData),
+      {
+        onSuccess: () => {
+          console.log('Job created successfully');
+        },
+      }
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createJob.mutate({ title, description });
+  };
+
+  return (
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title:</label>
+          <input
+              id="title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="description">Description:</label>
+          <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+        </div>
+        <button type="submit">Create Job</button>
+      </form>
+  );
 }
 

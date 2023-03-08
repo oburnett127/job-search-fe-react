@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {useQuery} from "react-query";
 import {useParams} from "react-router-dom";
+import JobItem from "../components/JobItem";
 
 function JobDetailPage() {
     const {id} = useParams();
@@ -18,7 +18,7 @@ function JobDetailPage() {
         return <div>Error: {error.message}</div>;
     }
 
-    return <div>{jobDetail.title}</div>;
+    return <JobItem job={jobDetail} />
 }
 
 export default JobDetailPage;

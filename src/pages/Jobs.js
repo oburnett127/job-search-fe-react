@@ -5,7 +5,6 @@ import axios from "axios";
 
 function JobsPage() {
   const { data: jobsData, isLoading: isLoadingJobs } = useQuery('jobs',
-      //() => JobService.getAllJobs()
       () => { return axios.get("http://localhost:8080/job/list");}
   );
 
