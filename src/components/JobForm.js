@@ -1,13 +1,8 @@
-import {
-  Form,
-  useNavigate,
-  useNavigation,
-  useActionData,
-  json,
-  redirect
-} from 'react-router-dom';
-
+import { Form, useNavigate, useNavigation, useActionData, json, redirect } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import axios from 'axios';
 import classes from './JobForm.module.css';
+import {useState} from "react";
 
 function JobForm({ method, job }) {
   const data = useActionData();
@@ -20,99 +15,21 @@ function JobForm({ method, job }) {
     navigate('..');
   }
 
-  return (
-    <Form method={method} className={classes.form}>
-      {data && data.errors && (
-        <ul>
-          {Object.values(data.errors).map((err) => (
-            <li key={err}>{err}</li>
-          ))}
-        </ul>
-      )}
-      <p>
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          required
-          defaultValue={job ? job.title : ''}
-        />
-      </p>
-      <p>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          rows="5"
-          required
-          defaultValue={job ? job.description : ''}
-        />
-      </p>
-      <div className={classes.actions}>
-        <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
-          Cancel
-        </button>
-        <button disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Save'}
-        </button>
-      </div>
-    </Form>
-  );
-}
-
-export default JobForm;
-
-export async function action({ request, params }) {
-  const method = request.method;
-  const data = await request.formData();
-
-  const jobData = {
-    title: data.get('title'),
-    description: data.get('description'),
-  };
-
-  let url = 'http://localhost:8080/job/create';
-
-  if (method === 'PUT') {
-    const jobId = params.jobId;
-    url = 'http://localhost:8080/job/edit/' + jobId;
-  }
-
-  const response = await fetch(url, {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(jobData),
-  });
-
-  if (response.status === 422) {
-    return response;
-  }
-
-  if (!response.ok) {
-    throw json({ message: 'Could not save job.' }, { status: 500 });
-  }
-
-  return redirect('/jobs');
-}
-
-
-//--------------------------------------------------------
-import { useMutation } from 'react-query';
-import axios from 'axios';
-
-function JobForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [result, setResult] = useState('');
 
   const createJob = useMutation(
       (formData) => axios.post('http://localhost:8080/job/create', formData),
       {
-        onSuccess: () => {
-          console.log('Job created successfully');
-        },
+            onSuccess: () => {
+              console.log('Job created successfully');
+              setResult('Job created successfully');
+            },
+            onError: () => {
+              console.log('An error occurred. Job could not be saved.');
+              setResult('An error occurred. Job could not be saved.');
+            }
       }
   );
 
@@ -122,26 +39,49 @@ function JobForm() {
   };
 
   return (
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title:</label>
+    <>
+      <p>{result}</p>
+      <Form method={method} className={classes.form} onSubmit={handleSubmit}>
+        {data && data.errors && (
+          <ul>
+            {Object.values(data.errors).map((err) => (
+              <li key={err}>{err}</li>
+            ))}
+          </ul>
+        )}
+        <p>
+          <label htmlFor="title">Title</label>
           <input
-              id="title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+            id="title"
+            type="text"
+            name="title"
+            required
+            defaultValue={job ? job.title : ''}
+            onChange={(e) => setTitle(e.target.value)}
           />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
+        </p>
+        <p>
+          <label htmlFor="description">Description</label>
           <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+            id="description"
+            name="description"
+            rows="5"
+            required
+            defaultValue={job ? job.description : ''}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </p>
+        <div className={classes.actions}>
+          <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
+            Cancel
+          </button>
+          <button disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Save'}
+          </button>
         </div>
-        <button type="submit">Create Job</button>
-      </form>
+      </Form>
+    </>
   );
 }
 
+export default JobForm;
