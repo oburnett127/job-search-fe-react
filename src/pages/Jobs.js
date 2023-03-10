@@ -1,6 +1,5 @@
 import JobsList from '../components/JobsList';
 import { useQuery } from 'react-query';
-import JobService from "../services/JobService";
 import axios from "axios";
 
 function JobsPage() {
@@ -8,12 +7,12 @@ function JobsPage() {
       () => { return axios.get("http://localhost:8080/job/list");}
   );
 
-  const jobs = isLoadingJobs ? [] : jobsData.data;
+  const jobs = isLoadingJobs ? [] : jobsData;
 
   return (
       <>
         {isLoadingJobs && <p>Loading...</p>}
-        {!isLoadingJobs && <JobsList jobs={jobs} />}
+        {!isLoadingJobs && <JobsList jobs={jobs.data} />}
       </>
   );
 }

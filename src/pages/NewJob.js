@@ -1,7 +1,7 @@
-import JobForm from '../components/JobForm';
+import JobPostForm from '../components/JobPostForm';
 
 function NewJobPage() {
-  return <JobForm method="post" />;
+  return <JobPostForm method="post" />;
 }
 
 export default NewJobPage;

@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
-import EditJobPage from './pages/EditJob';
+import UpdateJobPage from './pages/UpdateJob';
 import ErrorPage from './pages/Error';
 import JobDetailPage from './pages/JobDetail';
 import JobsPage from './pages/Jobs';
@@ -17,7 +17,7 @@ function App() {
                     <Route index element={<JobsPage />}></Route>
                     <Route path="/jobs/:id" id="job-detail">
                         <Route index element={<JobDetailPage />}></Route>
-                        <Route path="/jobs/:id/edit" element={<EditJobPage />}></Route>
+                        <Route path="/jobs/:id/edit" element={<UpdateJobPage />}></Route>
                     </Route>
                     <Route path="/jobs/new" element={<NewJobPage />}></Route>
                 </Route>

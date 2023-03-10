@@ -1,10 +1,10 @@
 import { Form, useNavigate, useNavigation, useActionData, json, redirect } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import axios from 'axios';
-import classes from './JobForm.module.css';
+import classes from './JobPostForm.module.css';
 import {useState} from "react";
 
-function JobForm({ method, job }) {
+function JobPostForm({ method, job }) {
   const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -84,4 +84,4 @@ function JobForm({ method, job }) {
   );
 }
 
-export default JobForm;
+export default JobPostForm;

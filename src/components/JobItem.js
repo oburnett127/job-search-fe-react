@@ -19,12 +19,10 @@ function JobItem({ job }) {
   return (
     <article className={classes.job}>
         <h2>{job.title}</h2>
-        <h3>{job.employerid}</h3>
-        <time>{job.postdate}</time>
+        <h3>{job.employerId}</h3>
+        <time>{job.postDate}</time>
         <p>{job.description}</p>
         <menu className={classes.actions}>
-            {/* <Link to="edit">Edit</Link>
-            <button onClick={startDeleteHandler}>Delete</button> */}
         </menu>
     </article>
   );
