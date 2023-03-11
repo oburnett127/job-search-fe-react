@@ -8,7 +8,7 @@ const JobUpdateForm = ({ job }) => {
     const [description, setDescription] = useState(job.description);
 
     const { mutate, isLoading } = useMutation(
-        (updatedJob) => axios.patch(`http://localhost:8080/job/update/${job.id}`, updatedJob),
+        (updatedJob) => axios.post(`http://localhost:8080/job/update/${job.id}`, updatedJob),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries("jobs");

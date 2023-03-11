@@ -1,11 +1,11 @@
-import { useRouteLoaderData } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import JobUpdateForm from "../components/JobUpdateForm";
 
 function UpdateJobPage() {
-  const data = useRouteLoaderData('job-detail');
-  console.log(data);
+ const location = useLocation();
+ const job = location.state.job;
 
-  return <JobUpdateForm job={data} />;
+  return <JobUpdateForm job={job} />;
 }
 
 export default UpdateJobPage;

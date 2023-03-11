@@ -7,6 +7,7 @@ import JobsRootLayout from './pages/JobsRoot';
 import HomePage from './pages/Home';
 import NewJobPage from './pages/NewJob';
 import RootLayout from './pages/Root';
+import DeleteJobPage from "./pages/DeleteJob";
 
 function App() {
     const router = createBrowserRouter(
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/jobs/:id" id="job-detail">
                         <Route index element={<JobDetailPage />}></Route>
                         <Route path="/jobs/:id/edit" element={<UpdateJobPage />}></Route>
+                        <Route path="/jobs/:id/delete" element={<DeleteJobPage />}></Route>
                     </Route>
                     <Route path="/jobs/new" element={<NewJobPage />}></Route>
                 </Route>
